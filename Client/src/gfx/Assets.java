@@ -3,8 +3,11 @@ package gfx;
 import java.awt.Font;
 import java.awt.image.BufferedImage;
 
+//  Classe in cui vengono salvate tutte le immagini e font utilizzate nel programma
 public class Assets {
     
+    public BufferedImage s;
+
     public Font font30, font50, font70;
 
     public Assets(){

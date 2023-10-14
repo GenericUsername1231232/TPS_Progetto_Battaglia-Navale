@@ -5,6 +5,7 @@ import java.awt.FontFormatException;
 import java.io.File;
 import java.io.IOException;
 
+//  Serve a prendere il font dal path specificato
 public class FontLoader {
 
 	public FontLoader() {

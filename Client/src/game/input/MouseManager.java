@@ -1,6 +1,7 @@
 package game.input;
 
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -13,6 +14,8 @@ public class MouseManager implements MouseListener, MouseMotionListener {
     private boolean leftPressed, rightPressed;
     private State clickedState;
     private Point mousePos = new Point();
+
+    private Point clickPos = new Point(-100, -100);
 
     @Override
     public void mousePressed(MouseEvent e) {
@@ -36,14 +39,15 @@ public class MouseManager implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        mousePos = new Point(e.getX(), e.getY());
+        mousePos.x = e.getX();
+        mousePos.y = e.getY();
     }
     
     public boolean isLeftPressed(){
         return leftPressed && clickedState == StateManager.getState();
     }
 
-        public boolean isRightPressed(){
+    public boolean isRightPressed(){
         return rightPressed;
     }
 
@@ -51,10 +55,22 @@ public class MouseManager implements MouseListener, MouseMotionListener {
         return mousePos;
     }
 
+    public boolean isClicked(Rectangle bounds) {
+        if (bounds.contains(clickPos)) {
+            clickPos.x = -100;
+            clickPos.y = -100;
+            return true;
+        }
+        return false;
+    }
+
     //Unused MouseLister/MouseMotionListener methods
 
     @Override
-    public void mouseClicked(MouseEvent e) {}
+    public void mouseClicked(MouseEvent e) {
+        clickPos.x = e.getX();
+        clickPos.y = e.getY();
+    }
     @Override
     public void mouseEntered(MouseEvent e) {}
     @Override

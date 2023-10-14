@@ -6,6 +6,12 @@ import java.awt.Graphics;
 import game.Game;
 import gfx.Text;
 
+/*
+    Scrive il testo che gli è stato passato partendo da sinistra del bottone
+    Quando il cursore non è sopra il bottone il contrno è nero e quando c'è sopra è rosso
+    Ha un ClickListener che viene chiamato quando viene clicato il bottone 
+    Il CliclListener si inizializza durante la creazione del bottone
+*/
 public class UITextButton extends UIObject {
 
     private Game game;
@@ -31,7 +37,7 @@ public class UITextButton extends UIObject {
 
         hovering = checkHovering();
 
-        if (hovering && game.getMouseManager().isLeftPressed())
+        if (hovering && checkClick())
             clicker.onClick();
 
     }
@@ -53,6 +59,10 @@ public class UITextButton extends UIObject {
 
     private boolean checkHovering() {
         return bounds.contains(game.getMouseManager().mousePosition());
+    }
+
+    private boolean checkClick() {
+        return game.getMouseManager().isClicked(bounds);
     }
     
 }

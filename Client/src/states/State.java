@@ -4,6 +4,7 @@ import java.awt.Graphics;
 
 import game.Game;
 
+// La classe abstract che estendono tutti gli stati che può assumere il programma
 public abstract class State {
     
     protected Game game;

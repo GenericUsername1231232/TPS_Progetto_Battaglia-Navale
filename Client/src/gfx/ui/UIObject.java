@@ -3,6 +3,10 @@ package gfx.ui;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
+/*
+    La classe abstract che estendono tutti gli elementi UI
+    ha una variabile bounds che contiene la posizione e la larghezza e altezza del bottone
+*/
 public abstract class UIObject {
     
     protected Rectangle bounds;

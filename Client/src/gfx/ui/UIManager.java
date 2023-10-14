@@ -3,6 +3,7 @@ package gfx.ui;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
+//  Si accouta di gestire gli elementi dell'UI che sono stati creati
 public class UIManager {
     
     private ArrayList<UIObject> objects;

@@ -5,7 +5,12 @@ import java.awt.image.BufferedImage;
 
 import game.Game;
 
-public class UIButton extends UIObject {
+/*
+    Questo bottone ha due immagini, images[0] quando non c'è sopra il cursore e images[1] quando c'è sopra il cursore
+    Ha un ClickListener che viene chiamato quando viene clicato il bottone
+    Il CliclListener si inizializza durante la creazione del bottone 
+*/
+public class UIButton extends UIObject {    
 
     private Game game;
     private boolean hovering;

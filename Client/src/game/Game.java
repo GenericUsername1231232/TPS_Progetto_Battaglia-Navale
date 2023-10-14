@@ -61,25 +61,25 @@ public class Game {
             delta += (now - lastTime) / timePerTick;
             lastTime = now;
 
-            if (delta >= 1) {       //entra nell'if $fps volte al secondo
+            if (delta >= 1) {       //Esegue le istruzione nell'if $fps volte al secondo
                 delta = 0;
                 
-                update();
-                render();
+                update();           //Si occupa di controllare e aggiornare variabili
+                render();           //Si occupa di mostrare a schermo gli elementi dell'interfaccia grafica/gioco
             }
         }
     }
 
     private void update() {
 
-        if (StateManager.getState() != null)
+        if (StateManager.getState() != null)    //Se è stato impostato uno stato dell'applicazione chiama il metodo update
             StateManager.getState().update();
 
     }
     
     private void render() {                
         
-        g = bs.getDrawGraphics();                                  //Assegna l'oggetto per disegnare sul canvas
+        g = bs.getDrawGraphics();              //Assegna l'oggetto per disegnare sul canvas
         g.clearRect(0, 0 , resolution.width, resolution.height);
 
         // DRAW HERE
@@ -87,7 +87,7 @@ public class Game {
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, resolution.width, resolution.height);
 
-        if (StateManager.getState() != null)
+        if (StateManager.getState() != null)    //Se è stato impostato uno stato dell'applicazione chiama il metodo render
             StateManager.getState().render(g);
 
         //
