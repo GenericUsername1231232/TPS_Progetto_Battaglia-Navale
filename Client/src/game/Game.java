@@ -4,17 +4,23 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
+import client.Client;
 import display.Display;
+import states.State;
+import states.*;
 
 public class Game {
     
     public static boolean running = true;
+    public static State waitingState;
 
     private String title;
     private int width, height;
     private Display display;
     private BufferStrategy bs;
     private Graphics g;
+
+    private Client client;
     
     public Game(String title, int width, int height) {
         this.title = title;
@@ -27,6 +33,10 @@ public class Game {
         display.getCanvas().createBufferStrategy(2);    //Crea una strategia di buffer del canvas
         bs = display.getCanvas().getBufferStrategy();              //Assegna la strategia di buffer
         
+        client = new Client();
+        waitingState = new WaitingState(this, client);
+
+        StateManager.setState(waitingState);
     }
 
     public void start() {
@@ -53,6 +63,9 @@ public class Game {
     }
 
     private void update() {
+
+        if (StateManager.getCurrentState() != null)
+            StateManager.getCurrentState().update();
 
     }
     
