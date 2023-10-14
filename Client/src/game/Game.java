@@ -1,35 +1,43 @@
 package game;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
 import client.Client;
 import display.Display;
+import game.input.MouseManager;
+import gfx.Assets;
 import states.State;
 import states.*;
 
 public class Game {
     
     public static boolean running = true;
+    public static Assets assets;
     public static State waitingState;
 
     private String title;
-    private int width, height;
+    private Dimension resolution;
     private Display display;
+    private MouseManager mouseManager;
     private BufferStrategy bs;
     private Graphics g;
+
 
     private Client client;
     
     public Game(String title, int width, int height) {
         this.title = title;
-        this.width = width;
-        this.height = height;
+        resolution = new Dimension(width, height);
     }
     
     private void init() {
-        display = new Display(title, width, height);
+        assets = new Assets();
+        mouseManager = new MouseManager();
+        display = new Display(title, resolution.width, resolution.height);
+        display.addMouseManager(mouseManager);
         display.getCanvas().createBufferStrategy(2);    //Crea una strategia di buffer del canvas
         bs = display.getCanvas().getBufferStrategy();              //Assegna la strategia di buffer
         
@@ -64,28 +72,36 @@ public class Game {
 
     private void update() {
 
-        if (StateManager.getCurrentState() != null)
-            StateManager.getCurrentState().update();
+        if (StateManager.getState() != null)
+            StateManager.getState().update();
 
     }
     
     private void render() {                
         
         g = bs.getDrawGraphics();                                  //Assegna l'oggetto per disegnare sul canvas
-        g.clearRect(0, 0 , width, height);
+        g.clearRect(0, 0 , resolution.width, resolution.height);
 
         // DRAW HERE
 
-        g.setColor(Color.GREEN);
-        g.fillRect(0, 0, width, height);
+        g.setColor(Color.WHITE);
+        g.fillRect(0, 0, resolution.width, resolution.height);
 
-        g.setColor(Color.BLUE);
-        g.fillRect(0, 0, width / 2, height / 2);
+        if (StateManager.getState() != null)
+            StateManager.getState().render(g);
 
         //
 
         bs.show();
         g.dispose();
+    }
+
+    public Dimension getResolution() {
+        return resolution;
+    }
+
+    public MouseManager getMouseManager() {
+        return mouseManager;
     }
 
 }

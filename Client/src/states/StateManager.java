@@ -4,7 +4,7 @@ public class StateManager {
     
     private static State currentState = null;
 
-    public static State getCurrentState() {
+    public static State getState() {
         return currentState;
     }
 

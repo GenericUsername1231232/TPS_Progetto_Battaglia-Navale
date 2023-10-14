@@ -1,6 +1,9 @@
 package display;
 
 import javax.swing.JFrame;
+
+import game.input.MouseManager;
+
 import java.awt.Canvas;
 import java.awt.Dimension;
 
@@ -38,12 +41,12 @@ public class Display {
         frame.pack();
     }
 
-    // public void addMouseManager(MouseManager mouseManager) {
-    //     frame.addMouseListener(mouseManager);
-    //     frame.addMouseMotionListener(mouseManager);
-    //     canvas.addMouseListener(mouseManager);
-    //     canvas.addMouseMotionListener(mouseManager);
-    // }
+    public void addMouseManager(MouseManager mouseManager) {
+        frame.addMouseListener(mouseManager);
+        frame.addMouseMotionListener(mouseManager);
+        canvas.addMouseListener(mouseManager);
+        canvas.addMouseMotionListener(mouseManager);
+    }
 
     public JFrame getFrame() {
         return frame;
