@@ -68,6 +68,7 @@ public class WaitingState extends State {
     public void render(Graphics g) {
         if (client.isConnected()) {
             Text.drawString(g, "Connected", game.getResolution().width / 2, game.getResolution().height / 2, true, Color.BLACK, Game.assets.font50);
+            
             return;
         }
 
