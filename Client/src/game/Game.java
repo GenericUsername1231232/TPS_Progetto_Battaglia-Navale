@@ -16,7 +16,8 @@ public class Game {
     
     public static boolean running = true;
     public static Assets assets;
-    public static State waitingState;
+    public static State waitingState,
+                        gameState;
 
     private String title;
     private Dimension resolution;
@@ -42,7 +43,8 @@ public class Game {
         bs = display.getCanvas().getBufferStrategy();              //Assegna la strategia di buffer
         
         client = new Client();
-        waitingState = new WaitingState(this, client);
+        waitingState = new WaitingState(this);
+        gameState = new GameState(this);
 
         StateManager.setState(waitingState);
     }
@@ -102,6 +104,10 @@ public class Game {
 
     public MouseManager getMouseManager() {
         return mouseManager;
+    }
+
+    public Client getClient() {
+        return client;
     }
 
 }

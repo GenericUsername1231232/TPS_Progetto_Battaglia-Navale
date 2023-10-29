@@ -2,6 +2,7 @@ package gfx.ui;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.event.MouseEvent;
 
 /*
     La classe abstract che estendono tutti gli elementi UI
@@ -17,5 +18,6 @@ public abstract class UIObject {
     
     public abstract void update();
     public abstract void render(Graphics g);
+    public abstract void click(MouseEvent e);
 
 }

@@ -2,6 +2,7 @@ package gfx.ui;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
 
 import game.Game;
 import gfx.Text;
@@ -34,12 +35,12 @@ public class UITextButton extends UIObject {
 
     @Override
     public void update() {
-
         hovering = checkHovering();
+    }
 
-        if (hovering && checkClick())
+    public void click(MouseEvent e) {
+        if (bounds.contains(e.getPoint()))
             clicker.onClick();
-
     }
 
     @Override
@@ -53,16 +54,11 @@ public class UITextButton extends UIObject {
 
         for (int thickness = 0; thickness < 7; thickness++) 
             g.drawRect(bounds.x + thickness, bounds.y + thickness, bounds.width - thickness * 2, bounds.height - thickness * 2);
-        Text.drawString(g, text, bounds.x + 7, bounds.y + bounds.height - 15, false, Color.BLACK, Game.assets.font30);
+        Text.drawString(g, text, bounds.x + 7, bounds.y + bounds.height - 15, false, Color.BLACK, Game.assets.font25);
 
     }
 
     private boolean checkHovering() {
         return bounds.contains(game.getMouseManager().mousePosition());
     }
-
-    private boolean checkClick() {
-        return game.getMouseManager().isClicked(bounds);
-    }
-    
 }

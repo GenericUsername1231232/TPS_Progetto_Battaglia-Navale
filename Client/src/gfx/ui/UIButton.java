@@ -1,6 +1,7 @@
 package gfx.ui;
 
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
 import game.Game;
@@ -31,12 +32,12 @@ public class UIButton extends UIObject {
 
     @Override
     public void update() {
-
         hovering = checkHovering();
+    }
 
-        if (hovering && game.getMouseManager().isLeftPressed())
+    public void click(MouseEvent e) {
+        if (bounds.contains(e.getPoint()))
             clicker.onClick();
-
     }
 
     @Override

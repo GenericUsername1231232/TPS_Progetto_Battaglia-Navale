@@ -23,7 +23,7 @@ public class Display {
         createDisplay();
     }
 
-    private void createDisplay(){
+    private void createDisplay() {
         frame = new JFrame(title);                                  
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);       //Quando viene premuta la X del frame si chiude
         frame.setSize(width, height);                               

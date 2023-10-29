@@ -2,6 +2,7 @@ package states;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
 
 import client.Client;
 import game.Game;
@@ -24,9 +25,9 @@ public class WaitingState extends State {
 
     private UIManager uiManager;
 
-    public WaitingState(Game game, Client client) {
+    public WaitingState(Game game) {
         super(game);
-        this.client = client;
+        this.client = game.getClient();
         this.client.start();
 
         uiManager = new UIManager();
@@ -45,8 +46,10 @@ public class WaitingState extends State {
 
     @Override
     public void update() {
-        if (client.isConnected())
+        if (client.isConnected()) {
+            StateManager.setState(Game.gameState);
             return;
+        }
 
         if (client.isConnecting())  {
             now = System.currentTimeMillis();
@@ -68,7 +71,6 @@ public class WaitingState extends State {
     public void render(Graphics g) {
         if (client.isConnected()) {
             Text.drawString(g, "Connected", game.getResolution().width / 2, game.getResolution().height / 2, true, Color.BLACK, Game.assets.font50);
-            
             return;
         }
 
@@ -84,8 +86,11 @@ public class WaitingState extends State {
         } else {
             Text.drawString(g, "No server found!", game.getResolution().width / 2, game.getResolution().height / 2, true, Color.BLACK, Game.assets.font50);
             uiManager.render(g);
-        }
-        
+        }  
+    }   
+
+    public void click(MouseEvent e) {
+        if (!client.isConnecting() && !client.isConnected())
+            uiManager.click(e);
     }
-    
 }

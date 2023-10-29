@@ -30,7 +30,7 @@ public class Client extends Thread {
             } catch (Exception e) {
                 try {sleep(1300);} catch (InterruptedException e1) {e1.printStackTrace();}
                 connecting = false;
-                e.printStackTrace();
+                System.err.println("CONNECTION FAILED!");
                 try {wait();} catch (InterruptedException e1) {e1.printStackTrace();}
             }
 
