@@ -12,7 +12,7 @@ public class Board {
     private Ship[] ships;
 
     private int x = 0, y = 0, cellWidth, cellHeight;
-    private boolean[] hit = new boolean[100];
+    private boolean[][] hit = new boolean[10][10];
     private boolean active;
 
     public Board(Game game) {
@@ -24,6 +24,8 @@ public class Board {
         ships[2] = new Ship(3, 7, Ship.ROTATION_WEST);
         ships[3] = new Ship(5, 9, Ship.ROTATION_SOUTH);
 
+        hit[9][0] = true;
+
     }
 
     public void update() {
@@ -33,7 +35,7 @@ public class Board {
     public void render(Graphics g) {
         
         g.setColor(Color.BLACK);
-        for (int i = 1; i < 11; i++) {
+        for (int i = 1; i < 11; i++) {      // Renderizza le celle delle lettere e numeri
             g.drawRect(x + i * cellWidth, y, cellWidth, cellHeight);
             Text.drawString(g, String.valueOf((char)('A' + i - 1)), x + i * cellWidth + cellWidth / 2,
             y + cellHeight / 2, true, Color.BLACK, Game.assets.font25);
@@ -42,24 +44,26 @@ public class Board {
             Text.drawString(g, String.valueOf((char)('0' + i - 1)), x + cellWidth / 2,
                             y + i * cellHeight + cellHeight / 2, true, Color.BLACK, Game.assets.font25);
         }
-        
-        for (int i = 0; i < 100; i++) {
-            if (hit[i]) {
+
+        for (int row = 0; row < 10; row++) {    // Renderizza le celle controllando se siano state colpite dall'avversario
+            for (int col = 0; col < 10; col++) {
+                if (hit[col][row]) {
                 g.setColor(Color.RED);
-                g.fillRect(x + cellWidth + (i % 10) * cellWidth,
-                y + cellHeight + (i / 10) * cellHeight, cellWidth, cellHeight);
+                g.fillRect(x + cellWidth + col * cellWidth,
+                y + cellHeight + row * cellHeight, cellWidth, cellHeight);
             }
             else {
                 g.setColor(Color.BLACK);
-                g.drawRect(x + cellWidth + (i % 10) * cellWidth,
-                y + cellHeight + (i / 10) * cellHeight, cellWidth, cellHeight);
+                g.drawRect(x + cellWidth + col * cellWidth,
+                y + cellHeight + row * cellHeight, cellWidth, cellHeight);
+            }
             }
         }
         for (Ship s : ships)
             s.render(g);
     }
 
-    public void setActive(boolean active) {
+    public void setActive(boolean active) { // Se la tabella è attiva è renderizzata al centro dello schermo altrimenti al lato con dimensioni demizzate
         this.active = active;
         if (!active) {
             cellWidth = Cell.DEFAULT_CELL_WIDTH / 2;

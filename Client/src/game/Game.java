@@ -46,7 +46,7 @@ public class Game {
         waitingState = new WaitingState(this);
         gameState = new GameState(this);
 
-        StateManager.setState(waitingState);
+        StateManager.setState(gameState);
     }
 
     public void start() {
