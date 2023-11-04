@@ -1,30 +1,35 @@
 package game.board;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Point;
 
 import game.Game;
+import game.attackboard.AttackCell;
+import game.board.ships.ShipsManager;
 import gfx.Text;
 
 public class Board {
     
     private Game game;
-    private Ship[] ships;
+    private ShipsManager shipsManager;
 
     private int x = 0, y = 0, cellWidth, cellHeight;
-    private boolean[][] hit = new boolean[10][10];
-    private boolean active;
+    private Cell[][] board = new Cell[10][10];
 
     public Board(Game game) {
         this.game = game;
-
-        ships = new Ship[4];
-        ships[0] = new Ship(2, 0, Ship.ROTATION_EAST);
-        ships[1] = new Ship(4, 33, Ship.ROTATION_NORTH);
-        ships[2] = new Ship(3, 7, Ship.ROTATION_WEST);
-        ships[3] = new Ship(5, 9, Ship.ROTATION_SOUTH);
-
-        hit[9][0] = true;
+        cellWidth = AttackCell.DEFAULT_CELL_WIDTH / 2;
+        cellHeight = AttackCell.DEFAULT_CELL_HEIGHT / 2;
+        x = AttackCell.DEFAULT_CELL_WIDTH * 11 + 100; 
+        y = 3 * game.getResolution().height / 4 - cellHeight * 11 / 2 - 2 * cellWidth + 20;
+        
+        for (int col = 0; col < 10; col++) 
+            for (int row = 0; row < 10; row++) 
+                board[col][row] = new Cell(x + cellWidth + col * cellWidth, y + cellHeight + row * cellHeight, cellWidth, cellHeight);
+                
+        shipsManager = new ShipsManager(this);
 
     }
 
@@ -45,45 +50,33 @@ public class Board {
                             y + i * cellHeight + cellHeight / 2, true, Color.BLACK, Game.assets.font25);
         }
 
-        for (int row = 0; row < 10; row++) {    // Renderizza le celle controllando se siano state colpite dall'avversario
-            for (int col = 0; col < 10; col++) {
-                if (hit[col][row]) {
-                g.setColor(Color.RED);
-                g.fillRect(x + cellWidth + col * cellWidth,
-                y + cellHeight + row * cellHeight, cellWidth, cellHeight);
-            }
-            else {
-                g.setColor(Color.BLACK);
-                g.drawRect(x + cellWidth + col * cellWidth,
-                y + cellHeight + row * cellHeight, cellWidth, cellHeight);
-            }
-            }
-        }
-        for (Ship s : ships)
-            s.render(g);
+        shipsManager.render(g);
+
+        for (Cell[] row : board)
+            for (Cell c : row) 
+                c.render(g);
+
     }
 
-    public void setActive(boolean active) { // Se la tabella è attiva è renderizzata al centro dello schermo altrimenti al lato con dimensioni demizzate
-        this.active = active;
-        if (!active) {
-            cellWidth = Cell.DEFAULT_CELL_WIDTH / 2;
-            cellHeight = Cell.DEFAULT_CELL_HEIGHT / 2;
-
-            x = Cell.DEFAULT_CELL_WIDTH * 11 + 100; 
-            y = 3 * game.getResolution().height / 4 - cellHeight * 11 / 2 - 2 * cellWidth + 20;
-        } else {
-            cellWidth = Cell.DEFAULT_CELL_WIDTH;
-            cellHeight = Cell.DEFAULT_CELL_HEIGHT;
-
-            x = 25;
-            y = game.getResolution().height / 2 - cellHeight * 11 / 2;
-        }
-        for (Ship s : ships)
-            s.setActive(active, x, y, cellWidth, cellHeight);
+    public int hit(Point hitIndices) {
+        System.out.println("POSITION " + x + " " + y);
+        return board[hitIndices.x][hitIndices.y].hit();
     }
 
-    public boolean isActive() {
-        return active;
+    public Point getXY() {
+        return new Point(x, y);
+    }
+
+    public Dimension getCellSize() {
+        return new Dimension(cellWidth, cellHeight);
+    }
+
+    public Cell[][] getBoard() {
+        return board;
+    }
+
+    public Game getGame() {
+        return game;
     }
 
 }

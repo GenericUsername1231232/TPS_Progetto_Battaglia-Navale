@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 //  Classe in cui vengono salvate tutte le immagini e font utilizzate nel programma
 public class Assets {
     
-    public BufferedImage SUS;
+    public BufferedImage hitSymbol;
 
     public Font font25, font50, font70;
 
@@ -17,7 +17,7 @@ public class Assets {
     }
 
     private void loadTextures() {
-        
+        hitSymbol = ImageLoader.loadImage("res/textures/x.png");
     }
 
     private void loadUI(){

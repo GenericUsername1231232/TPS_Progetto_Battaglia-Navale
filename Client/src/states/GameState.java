@@ -5,7 +5,7 @@ import java.awt.event.MouseEvent;
 
 import client.Client;
 import game.Game;
-import game.board.AttackBoard;
+import game.attackboard.AttackBoard;
 import game.board.Board;
 
 public class GameState extends State {
@@ -19,12 +19,14 @@ public class GameState extends State {
         this.client = game.getClient();
         attackBoard = new AttackBoard(game);
         board = new Board(game);
-        board.setActive(false);
     }
 
     @Override
     public void update() {
         attackBoard.update();
+        if (client.isHitted()) {
+            board.hit(client.getHitIndices());
+        }
     }
 
     @Override
@@ -34,12 +36,11 @@ public class GameState extends State {
 
     @Override
     public void render(Graphics g) {
+        attackBoard.render(g);
         board.render(g);
-        if (!board.isActive())
-            attackBoard.render(g);
     }
 
-    public void checkHit(MouseEvent e) {
+    public void checkHit(int x, int y) {
         
     }
 
