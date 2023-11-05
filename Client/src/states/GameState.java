@@ -3,14 +3,14 @@ package states;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 
-import client.Client;
+import client.GameClient;
 import game.Game;
 import game.attackboard.AttackBoard;
 import game.board.Board;
 
 public class GameState extends State {
 
-    private Client client;
+    private GameClient client;
     private AttackBoard attackBoard;
     private Board board;
 
@@ -44,7 +44,7 @@ public class GameState extends State {
         
     }
 
-    public Client getCLient() {
+    public GameClient getCLient() {
         return client;
     }
 

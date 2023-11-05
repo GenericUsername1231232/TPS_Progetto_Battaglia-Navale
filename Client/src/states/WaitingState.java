@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 
-import client.Client;
+import client.GameClient;
 import game.Game;
 import gfx.Text;
 import gfx.ui.ClickListener;
@@ -18,7 +18,7 @@ import gfx.ui.UITextButton;
 */
 public class WaitingState extends State {
 
-    private Client client;
+    private GameClient client;
     private long timer = 0,             // Per l'animazione durante la connessione
                  now = 0, 
                  lastTime = System.currentTimeMillis();

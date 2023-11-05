@@ -15,7 +15,7 @@ public class AttackCell {
     private Game game;
     private boolean hovering;
     private Rectangle bounds;
-
+ 
     public AttackCell(Game game, int x, int y, int width, int height) {
         this.game = game;
         bounds = new Rectangle(x, y, width, height);
@@ -26,7 +26,7 @@ public class AttackCell {
     }
 
     public boolean click(MouseEvent e) {
-        return bounds.contains(e.getPoint());
+        return e != null && bounds.contains(e.getPoint());
     }
 
     public void render(Graphics g) {

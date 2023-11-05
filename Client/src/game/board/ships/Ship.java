@@ -32,33 +32,34 @@ public class Ship {
         this.indices = position;
         segments = new Segment[length];
 
-        for (int i = 0; i < length; i++) 
-            segments[i] = createSegment(x, y, cellWidth, cellHeight, i);
+        for (int i = 0; i < length; i++) {
+            int tempX = 0;
+            int tempY = 0;
+            switch (rotation) {
+                case ROTATION_EAST:
+                    tempX = i;
+                    break;
+                case ROTATION_NORTH:
+                    tempY = -i;
+                    break;
+                case ROTATION_WEST:
+                    tempX = -i;
+                    break;
+                case ROTATION_SOUTH:
+                    tempY = i;
+                    break;
+            }
+
+            int segmentX = x + cellWidth * tempX;
+            int segmentY = y + cellHeight * tempY;
+            segments[i] = createSegment(segmentX, segmentY);
+        }
     }
 
-    private Segment createSegment(int x, int y, int cellWidth, int cellHeight, int i) {
-        int tempX = 0, tempY = 0;
-        switch (rotation) {
-            case ROTATION_EAST:
-                x = x + cellWidth * i;
-                tempX = i;
-                break;
-            case ROTATION_NORTH:
-                y = y - cellHeight * i;
-                tempY = -i;
-                break;
-            case ROTATION_WEST:
-                x = x - cellWidth * i;
-                tempX = -i;
-                break;
-            case ROTATION_SOUTH:
-                y = y + cellHeight * i;
-                tempY = i;
-                break;
-        }
-
+    private Segment createSegment(int x, int y) {
         Segment s = new Segment(this, x, y, DEFAULT_SHIP_WIDTH, DEFAULT_SHIP_HEIGHT);
-        board.getBoard()[indices.x + tempX][indices.y + tempY].setSegment(s);
+        Point tempIndices = new Point(indices.x, indices.y);
+        board.getBoard()[tempIndices.x][tempIndices.y].setSegment(s);
         return s;
     }
 
@@ -66,20 +67,33 @@ public class Ship {
         segment.hit();
         if (isDestroyed())
             return SHIP_DESTROYED;
+
         return SHIP_HITTED;
     }
 
     private boolean isDestroyed() {
-        for (int i = 0; i < length; i++)
-            if (!segments[i].isHit())
+         for (Segment s : segments) 
+            if (!s.isHit()) 
                 return false;
+            
         return true;
     }
 
     public void render(Graphics g) {
         for (Segment s : segments)
             s.render(g);
+    }
 
+    public void setRotation(int rotation) {
+        this.rotation = rotation;
+    }
+
+    public int getRotation() {
+        return rotation;
+    }
+
+    public int getLength() {
+        return length;
     }
 
 }

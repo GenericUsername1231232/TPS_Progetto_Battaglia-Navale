@@ -5,7 +5,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
-import client.Client;
+import client.GameClient;
 import display.Display;
 import game.input.MouseManager;
 import gfx.Assets;
@@ -27,7 +27,7 @@ public class Game {
     private Graphics g;
 
 
-    private Client client;
+    private GameClient client;
     
     public Game(String title, int width, int height) {
         this.title = title;
@@ -42,11 +42,11 @@ public class Game {
         display.getCanvas().createBufferStrategy(2);    //Crea una strategia di buffer del canvas
         bs = display.getCanvas().getBufferStrategy();              //Assegna la strategia di buffer
         
-        client = new Client();
+        client = new GameClient();
         waitingState = new WaitingState(this);
         gameState = new GameState(this);
 
-        StateManager.setState(waitingState);
+        StateManager.setState(gameState);
     }
 
     public void start() {
@@ -98,16 +98,17 @@ public class Game {
         g.dispose();
     }
 
-    public Dimension getResolution() {
-        return resolution;
-    }
-
+    
     public MouseManager getMouseManager() {
         return mouseManager;
     }
-
-    public Client getClient() {
+    
+    public GameClient getClient() {
         return client;
+    }
+    
+    public Dimension getResolution() {
+        return resolution;
     }
 
 }

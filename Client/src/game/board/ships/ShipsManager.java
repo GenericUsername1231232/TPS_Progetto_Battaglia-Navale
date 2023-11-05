@@ -7,23 +7,32 @@ import game.board.Board;
 
 public class ShipsManager {
     
-    public static final int SHIP_1 = 2,
-                            SHIP_2 = 3,
-                            SHIP_3 = 3,
-                            SHIP_4 = 1,
-                            TOTAL_SHIPS = SHIP_4 + SHIP_3 + SHIP_2 + SHIP_1;
-        
-    private int[] setup = {1, 1, 2, 2, 2, 3, 3, 3, 4};
-    private Ship[] ships = new Ship[TOTAL_SHIPS];
+    public enum ShipType {
+        SHIP_1(1), SHIP_2(2), SHIP_3(3), SHIP_4(4);
+
+        private final int length;
+
+        ShipType(int length) {
+            this.length = length;
+        }
+
+        public int getLength() {
+            return length;
+        }
+    }
+
+    private final ShipType[] setup = { ShipType.SHIP_1, ShipType.SHIP_1, ShipType.SHIP_2, ShipType.SHIP_2, ShipType.SHIP_2, ShipType.SHIP_3, ShipType.SHIP_3, ShipType.SHIP_3, ShipType.SHIP_4 };
+    private Ship[] ships = new Ship[setup.length];
     private Board board;
 
     public ShipsManager(Board board) {
         this.board = board;
-        for (int i = 0; i < TOTAL_SHIPS; i++) {
-            ships[i] = new Ship(board, setup[i], new Point(i, 0), 
-                                board.getXY().x + (i + 1) * board.getCellSize().width + board.getCellSize().width / 2 - Ship.DEFAULT_SHIP_HEIGHT / 2, 
-                                board.getXY().y + board.getCellSize().height + board.getCellSize().height / 2 - Ship.DEFAULT_SHIP_HEIGHT / 2, 
-                                Ship.ROTATION_SOUTH, board.getCellSize().width, board.getCellSize().height);
+        for (int i = 0; i < setup.length; i++) {
+            ShipType shipType = setup[i];
+            ships[i] = new Ship(board, shipType.getLength(), new Point(i, 0),
+                    board.getXY().x + (i + 1) * board.getCellSize().width + board.getCellSize().width / 2 - Ship.DEFAULT_SHIP_HEIGHT / 2,
+                    board.getXY().y + board.getCellSize().height + board.getCellSize().height / 2 - Ship.DEFAULT_SHIP_HEIGHT / 2,
+                    Ship.ROTATION_SOUTH, board.getCellSize().width, board.getCellSize().height);
         }
     }
 
