@@ -8,8 +8,8 @@ import game.Game;
 
 /*
     Questo bottone ha due immagini, images[0] quando non c'è sopra il cursore e images[1] quando c'è sopra il cursore
-    Ha un ClickListener che viene chiamato quando viene clicato il bottone
-    Il CliclListener si inizializza durante la creazione del bottone 
+    Ha un ClickListener che viene chiamato quando viene cliccato il bottone
+    Il ClickListener si inizializza durante la creazione del bottone 
 */
 public class UIButton extends UIObject {    
 
@@ -35,6 +35,7 @@ public class UIButton extends UIObject {
         hovering = checkHovering();
     }
 
+    @Override
     public void click(MouseEvent e) {
         if (bounds.contains(e.getPoint()))
             clicker.onClick();

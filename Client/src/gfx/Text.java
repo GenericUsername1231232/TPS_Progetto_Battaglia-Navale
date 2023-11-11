@@ -28,8 +28,5 @@ public class Text {
             g.drawString(line, x, y);
             yPos += g.getFontMetrics(font).getHeight();
         }
-
-		
 	}
-
 }

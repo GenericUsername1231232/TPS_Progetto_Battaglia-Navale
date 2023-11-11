@@ -1,24 +1,23 @@
 package display;
 
 import javax.swing.JFrame;
-
-import game.input.MouseManager;
-
 import java.awt.Canvas;
 import java.awt.Dimension;
 
+import game.input.MouseManager;
+
 public class Display {
     
+    public static Dimension resolution;
+
     private String title;
-    private int width, height;
 
     private JFrame frame;
     private Canvas canvas;
 
     public Display(String title, int width, int height) {
         this.title = title;
-        this.width = width;
-        this.height = height;
+        resolution = new Dimension(width, height);
 
         createDisplay();
     }
@@ -29,9 +28,9 @@ public class Display {
         frame.setResizable(false);                      
         
         canvas = new Canvas();                                      
-        canvas.setMinimumSize(new Dimension(width, height));        //Imposta la dimensione del canvas
-        canvas.setPreferredSize(new Dimension(width, height));
-        canvas.setMaximumSize(new Dimension(width, height));
+        canvas.setMinimumSize(new Dimension(resolution.width, resolution.height));        //Imposta la dimensione del canvas
+        canvas.setPreferredSize(new Dimension(resolution.width, resolution.height));
+        canvas.setMaximumSize(new Dimension(resolution.width, resolution.height));
         canvas.setFocusable(false);
         canvas.requestFocus();
         

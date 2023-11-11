@@ -5,11 +5,10 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
-import client.Client;
+import client.GameClient;
 import display.Display;
 import game.input.MouseManager;
 import gfx.Assets;
-import states.State;
 import states.*;
 
 public class Game {
@@ -26,8 +25,7 @@ public class Game {
     private BufferStrategy bs;
     private Graphics g;
 
-
-    private Client client;
+    private GameClient client;
     
     public Game(String title, int width, int height) {
         this.title = title;
@@ -42,7 +40,7 @@ public class Game {
         display.getCanvas().createBufferStrategy(2);    //Crea una strategia di buffer del canvas
         bs = display.getCanvas().getBufferStrategy();              //Assegna la strategia di buffer
         
-        client = new Client();
+        client = new GameClient();
         waitingState = new WaitingState(this);
         gameState = new GameState(this);
 
@@ -60,10 +58,10 @@ public class Game {
 
         while (running) {
             now = System.nanoTime();
-            delta += (now - lastTime) / timePerTick;
+            delta += (now - lastTime);
             lastTime = now;
 
-            if (delta >= 1) {       //Esegue le istruzione nell'if $fps volte al secondo
+            if (delta >= timePerTick) {       //Esegue le istruzione nell'if $fps volte al secondo
                 delta = 0;
                 
                 update();           //Si occupa di controllare e aggiornare variabili
@@ -73,14 +71,11 @@ public class Game {
     }
 
     private void update() {
-
         if (StateManager.getState() != null)    //Se è stato impostato uno stato dell'applicazione chiama il metodo update
             StateManager.getState().update();
-
     }
     
     private void render() {                
-        
         g = bs.getDrawGraphics();              //Assegna l'oggetto per disegnare sul canvas
         g.clearRect(0, 0 , resolution.width, resolution.height);
 
@@ -98,16 +93,15 @@ public class Game {
         g.dispose();
     }
 
-    public Dimension getResolution() {
-        return resolution;
-    }
-
     public MouseManager getMouseManager() {
         return mouseManager;
     }
-
-    public Client getClient() {
+    
+    public GameClient getClient() {
         return client;
     }
-
+    
+    public Dimension getResolution() {
+        return resolution;
+    }
 }

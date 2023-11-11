@@ -8,7 +8,7 @@ public class Assets {
     
     public BufferedImage hitSymbol;
 
-    public Font font25, font50, font70;
+    public Font font25, font40, font50;
 
     public Assets(){
         loadUI();
@@ -26,8 +26,8 @@ public class Assets {
 
     private void loadFonts() {
         font25 = FontLoader.loadFont("res/fonts/JetBrainsMono.ttf", 25);
+        font40 = FontLoader.loadFont("res/fonts/JetBrainsMono.ttf", 40);
         font50 = FontLoader.loadFont("res/fonts/JetBrainsMono.ttf", 50);
-        font70 = FontLoader.loadFont("res/fonts/JetBrainsMono.ttf", 70);
     }
 
 }

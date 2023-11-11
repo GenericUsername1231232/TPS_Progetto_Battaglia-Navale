@@ -11,7 +11,7 @@ import gfx.Text;
     Scrive il testo che gli è stato passato partendo da sinistra del bottone
     Quando il cursore non è sopra il bottone il contrno è nero e quando c'è sopra è rosso
     Ha un ClickListener che viene chiamato quando viene clicato il bottone 
-    Il CliclListener si inizializza durante la creazione del bottone
+    Il ClickListener si inizializza durante la creazione del bottone
 */
 public class UITextButton extends UIObject {
 
@@ -38,6 +38,7 @@ public class UITextButton extends UIObject {
         hovering = checkHovering();
     }
 
+    @Override
     public void click(MouseEvent e) {
         if (bounds.contains(e.getPoint()))
             clicker.onClick();
