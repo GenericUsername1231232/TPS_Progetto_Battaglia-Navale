@@ -12,7 +12,7 @@ import game.board.Board;
 
 public class GameState extends State {
     
-    public static volatile boolean canAttack = false;
+    public static volatile boolean canAttack = true;
     public static volatile EnemyShips enemyShips;
     
     private GameClient client;
