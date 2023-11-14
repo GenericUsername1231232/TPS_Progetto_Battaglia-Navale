@@ -38,7 +38,7 @@ public class AttackBoard {
         
     }
 
-    public Point click(MouseEvent e) {
+    public Point click(MouseEvent e) {  // Ritorna le coordinate della tabella della cella che è stata cliccata altrimente ritorna null
         for (int row = 0; row < BOARD_SIZE; row++) 
             for (int col = 0; col < BOARD_SIZE; col++)
                 if (board[col][row].click(e)) 

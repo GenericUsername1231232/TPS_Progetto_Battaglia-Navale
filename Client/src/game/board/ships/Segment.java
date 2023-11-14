@@ -4,6 +4,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
+/**
+ * Segmento della nave.
+ * Viene automaticamente inserito nelle coordinate della tabella in base alla posizione e rotazione della nave e numero del segmento
+ */
 public class Segment {
     
     private Ship ship;

@@ -12,7 +12,7 @@ public class Cell {
     
     private Rectangle bounds;
     private boolean hit = false;
-    private Segment segment = null;
+    private Segment segment = null;     // Alcune celle contengono il segmento della nave che gli è stata posizionata sopra
 
     public Cell(int x, int y, int width, int height) {
         bounds = new Rectangle(x, y, width, height);
@@ -25,7 +25,7 @@ public class Cell {
         g.drawRect(bounds.x, bounds.y, bounds.width, bounds.height);
     }
 
-    public String hit() {
+    public String hit() {       // Ritorna le informazione del colpo dell'avversario
         hit = true;
         if (segment != null) 
             return segment.getShip().hit(segment);

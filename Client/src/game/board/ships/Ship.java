@@ -32,8 +32,8 @@ public class Ship {
         this.indices = position;
         segments = new Segment[length];
 
-        for (int i = 0; i < length; i++) {
-            int tempX = 0;
+        for (int i = 0; i < length; i++) {      // Crea tutti i segmenti della nave calcolandone le coordinate su schermo e sulla tabella
+            int tempX = 0;          // Coordinate tabella
             int tempY = 0;
             switch (rotation) {
                 case ROTATION_EAST:
@@ -50,7 +50,7 @@ public class Ship {
                     break;
             }
 
-            int segmentX = x + cellWidth * tempX;
+            int segmentX = x + cellWidth * tempX;   // Coordinate schermo     
             int segmentY = y + cellHeight * tempY;
             segments[i] = createSegment(segmentX, segmentY, tempX, tempY);
         }
@@ -63,10 +63,10 @@ public class Ship {
         return s;
     }
 
-    public String hit(Segment segment) {
+    public String hit(Segment segment) {        // La tabella invia alla nave il segmento colpito
         segment.hit();
         if (isDestroyed())
-            return SHIP_DESTROYED.concat(Integer.toString(length));
+            return SHIP_DESTROYED.concat(Integer.toString(length)); // Dice che la nave è stata distrutta specificando la lunghezza della nave
 
         return SHIP_HITTED;
     }

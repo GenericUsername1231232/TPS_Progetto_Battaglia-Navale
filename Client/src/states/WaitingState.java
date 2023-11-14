@@ -35,7 +35,7 @@ public class WaitingState extends State {
         uiManager.add(new UITextButton(game, 0, 0, 500, 100, false, "SALVE", new ClickListener() {
 
             @Override
-            public void onClick() {
+            public void onClick() {     // Riporova la connessione
                 synchronized (client) {
                     client.notify();
                 } 
@@ -46,12 +46,12 @@ public class WaitingState extends State {
 
     @Override
     public void update() {
-        if (client.isConnected()) {
+        if (client.isConnected()) {         // Quando si connette con l'avversario parte il gioco
             StateManager.setState(Game.gameState);
             return;
         }
 
-        if (client.isConnecting())  {
+        if (client.isConnecting())  {       // Timer per animazione connessione
             now = System.currentTimeMillis();
             timer += now - lastTime;
             lastTime = now;
@@ -74,7 +74,7 @@ public class WaitingState extends State {
             return;
         }
 
-        if (client.isConnecting()) {
+        if (client.isConnecting()) {            // Animazione connessione
             if (timer >= 1500)
                 Text.drawString(g, "Connecting...", game.getResolution().width / 2, game.getResolution().height / 2, true, Color.BLACK, Game.assets.font50);
             else if (timer >= 1000)
@@ -85,12 +85,12 @@ public class WaitingState extends State {
                 Text.drawString(g, "Connecting", game.getResolution().width / 2, game.getResolution().height / 2, true, Color.BLACK, Game.assets.font50);
         } else {
             Text.drawString(g, "No server found!", game.getResolution().width / 2, game.getResolution().height / 2, true, Color.BLACK, Game.assets.font50);
-            uiManager.render(g);
+            uiManager.render(g);    // pulsante "Riporva" renderizzato solo quando non si sta tentando la connessione e si è disconnessi
         }  
     }   
 
     public void click(MouseEvent e) {
-        if (!client.isConnecting() && !client.isConnected())
+        if (!client.isConnecting() && !client.isConnected())    // é possibile fare click sul pulsante "Riporva" solo quando non si sta tentando la connessione e si è disconnessi
             uiManager.click(e);
     }
 }

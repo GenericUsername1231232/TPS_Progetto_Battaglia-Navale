@@ -1,6 +1,6 @@
 package states;
 
-//  Gestisce i vari stati che può assumere il programma
+// Gestisce i vari stati che può assumere il programma
 public class StateManager {
     
     private static State currentState = null;

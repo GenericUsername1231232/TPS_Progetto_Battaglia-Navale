@@ -5,7 +5,7 @@ import java.awt.event.MouseEvent;
 
 import game.Game;
 
-// La classe abstract che estendono tutti gli stati che può assumere il programma
+// La classe base che estendono tutti gli stati che può assumere il programma
 public abstract class State {
     
     protected Game game;

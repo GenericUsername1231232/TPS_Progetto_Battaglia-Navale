@@ -28,7 +28,7 @@ public class Board {
         this.game = game;
         
         for (int col = 0; col < BOARD_SIZE; col++) 
-            for (int row = 0; row < BOARD_SIZE; row++) {
+            for (int row = 0; row < BOARD_SIZE; row++) {        // Crea tutte le celle della tabella
                 int cellX = BOARD_X_OFFSET + CELL_WIDTH + col * CELL_WIDTH;
                 int cellY = BOARD_Y_OFFSET + CELL_HEIGHT + row * CELL_HEIGHT;
                 board[col][row] = new Cell(cellX, cellY, CELL_WIDTH, CELL_HEIGHT);
@@ -36,10 +36,6 @@ public class Board {
                 
         shipsManager = new ShipsManager(this);
 
-    }
-
-    public void update() {
-        
     }
 
     public void render(Graphics g) {
@@ -60,13 +56,13 @@ public class Board {
 
         shipsManager.render(g);
 
-        for (Cell[] row : board)
+        for (Cell[] row : board)        // Renderizza le celle della tabella
             for (Cell c : row) 
                 c.render(g);
 
     }
 
-    public String hit(Point hitIndices) {
+    public String hit(Point hitIndices) {   // Ritorna le informazione del colpo inviato dall'avversario
         return board[hitIndices.x][hitIndices.y].hit();
     }
 

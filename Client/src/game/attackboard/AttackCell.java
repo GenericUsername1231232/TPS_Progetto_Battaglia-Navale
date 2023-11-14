@@ -31,25 +31,23 @@ public class AttackCell {
     }
 
     public boolean click(MouseEvent e) {
-        if (!clicked && e != null && bounds.contains(e.getPoint())) {
+        if (!clicked && e != null && bounds.contains(e.getPoint())) {       // Controlla se la cella è stata cliccata ed che non sia stata già cliccata in precedenza
             clicked = true;
             return true;
         }
         return false;    
     }
 
-    public void render(Graphics g) {
-        if (hovering) {        
+    public void render(Graphics g) {        
+        if (clicked) {      // In base a se è stata cliccata o c'è il mouse sopra riempi la cella con un colore diverso
+            g.setColor(clickedColor);
+            g.fillRect(bounds.x, bounds.y, bounds.width, bounds.height);
+        } else if (hovering) {
             g.setColor(hoveringColor);
             g.fillRect(bounds.x, bounds.y, bounds.width, bounds.height);
         }
-        
-        if (clicked) {
-            g.setColor(clickedColor);
-            g.fillRect(bounds.x, bounds.y, bounds.width, bounds.height);
-        }
 
-        g.setColor(Color.BLACK);
+        g.setColor(Color.BLACK);    // Bordo cella
         g.drawRect(bounds.x, bounds.y, bounds.width, bounds.height);
     }
 

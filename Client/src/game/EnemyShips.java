@@ -7,6 +7,8 @@ import display.Display;
 import game.attackboard.AttackCell;
 import gfx.Text;
 
+
+// Classe temporanea (credo) che mostra le navi nemiche nel riqadro a sinistra
 public class EnemyShips {
     
     private static final int BORDER_WIDTH = AttackCell.DEFAULT_CELL_WIDTH * 11 / 2;

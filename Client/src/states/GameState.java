@@ -29,15 +29,15 @@ public class GameState extends State {
 
     @Override
     public void update() {
-        if (!client.isConnected()) {
+        if (!client.isConnected()) {        // Se l'avversario di disconnette resetta le tabelle di gioco e ritorna nel WaitingState
             reset();
             StateManager.setState(Game.waitingState);
         }
         
-        if (canAttack)
+        if (canAttack)                      // Se può attaccare abilita la tabella per l'attacco
             attackBoard.update();
 
-        if (client.isHitted()) {
+        if (client.isHitted()) {            // Quando l'avversario invia il proprio colpo gli invia le informazione di quel colpo 
             String message = board.hit(client.getHitIndices());
             client.sendMessage(message);
             canAttack = true;
@@ -48,7 +48,7 @@ public class GameState extends State {
     }
 
     @Override
-    public void click(MouseEvent e) {
+    public void click(MouseEvent e) {       // Se può attaccare controlla dove si è fatto click sulla tabella di attacco
         if (!canAttack)
             return;
 
@@ -66,7 +66,7 @@ public class GameState extends State {
         enemyShips.render(g);
     }
 
-    private void sendMessageToServer(int col, int row) {
+    private void sendMessageToServer(int col, int row) {        // Invia le coordinate dell'attacco inviate come "x y"
         GameClient client = game.getClient();
         String message = col + " " + row;
         client.sendMessage(message);
